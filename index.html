@@ -344,7 +344,6 @@
             overflow: hidden;
         }
         
-        /* Efecto de brillo en las imágenes */
         .gallery-img::before {
             content: '';
             position: absolute;
@@ -354,14 +353,6 @@
             bottom: 0;
             background: linear-gradient(45deg, rgba(255, 215, 0, 0.1), rgba(139, 69, 19, 0.1));
             z-index: 1;
-        }
-        
-        .gallery-img img {
-            max-width: 120px;
-            max-height: 120px;
-            filter: drop-shadow(0 0 10px rgba(255, 215, 0, 0.3));
-            z-index: 2;
-            position: relative;
         }
         
         /* Imágenes específicas para cada historia */
@@ -657,6 +648,7 @@
             background: linear-gradient(rgba(10, 10, 10, 0.9), rgba(10, 10, 10, 0.9)), 
                         url('https://images.unsplash.com/photo-1511512578047-dfb367046420?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80') 
                         no-repeat center center/cover;
+            padding: 100px 0;
         }
         
         .final-cta h2 {
@@ -676,9 +668,15 @@
         .cta-form {
             max-width: 500px;
             margin: 0 auto;
-            display: flex;
-            flex-direction: column;
-            gap: 20px;
+        }
+        
+        .form-container {
+            background: rgba(26, 26, 26, 0.9);
+            padding: 30px;
+            border-radius: var(--border-radius);
+            border: 1px solid var(--accent-color);
+            box-shadow: var(--box-shadow);
+            margin-bottom: 30px;
         }
         
         .cta-form input {
@@ -689,11 +687,23 @@
             color: var(--light-color);
             font-family: var(--font-text);
             font-size: 1rem;
+            width: 100%;
+            margin-bottom: 15px;
         }
         
         .cta-form input:focus {
             outline: none;
             border-color: var(--accent-color);
+        }
+        
+        .btn-whatsapp {
+            background: linear-gradient(45deg, #25D366, #128C7E);
+            border: none;
+            margin-top: 10px;
+        }
+        
+        .btn-whatsapp:hover {
+            background: linear-gradient(45deg, #128C7E, #25D366);
         }
         
         .counter {
@@ -810,7 +820,7 @@
             background-color: #128C7E;
         }
         
-        /* Popup de salida - MEJORADO */
+        /* Popup de salida */
         .exit-popup {
             position: fixed;
             top: 0;
@@ -935,6 +945,10 @@
             
             .gallery-img {
                 background-size: 100px;
+            }
+            
+            .form-container {
+                padding: 20px;
             }
         }
         
@@ -1082,7 +1096,6 @@
             
             <div class="gallery-container">
                 <div class="gallery-item">
-                    <!-- IMAGEN MEJORADA -->
                     <div class="gallery-img story-1"></div>
                     <div class="gallery-content">
                         <h4>Para Juan y María - 15 años juntos</h4>
@@ -1091,7 +1104,6 @@
                 </div>
                 
                 <div class="gallery-item">
-                    <!-- NUEVO DISEÑO MEJORADO -->
                     <div class="gallery-img story-2"></div>
                     <div class="gallery-content">
                         <h4>Gamer Legendario</h4>
@@ -1100,7 +1112,6 @@
                 </div>
                 
                 <div class="gallery-item">
-                    <!-- IMAGEN MEJORADA -->
                     <div class="gallery-img story-3"></div>
                     <div class="gallery-content">
                         <h4>Huellas de Toby</h4>
@@ -1109,7 +1120,6 @@
                 </div>
                 
                 <div class="gallery-item">
-                    <!-- IMAGEN MEJORADA -->
                     <div class="gallery-img story-4"></div>
                     <div class="gallery-content">
                         <h4>Coordenadas del amor</h4>
@@ -1118,7 +1128,6 @@
                 </div>
                 
                 <div class="gallery-item">
-                    <!-- IMAGEN MEJORADA -->
                     <div class="gallery-img story-5"></div>
                     <div class="gallery-content">
                         <h4>Arte abstracto personal</h4>
@@ -1383,16 +1392,61 @@
         </div>
     </section>
 
-    <!-- CTA Final -->
+    <!-- CTA Final CON FORMULARIO FUNCIONAL -->
     <section id="cta" class="final-cta">
         <div class="container">
             <h2>Tu historia merece ser contada. Y jugada.</h2>
             <p>Menos de 5 personas al mes pueden tener un ARTCADE. Cada pieza es única y requiere horas de dedicación artesanal. ¿Serás una de las personas que convierten sus recuerdos en controles?</p>
             
             <div class="cta-form">
-                <input type="text" id="name" placeholder="Tu nombre" required>
-                <input type="email" id="email" placeholder="Tu email" required>
-                <button type="submit" class="btn" id="submitCta">Quiero empezar mi diseño</button>
+                <!-- FORMULARIO PRINCIPAL CON FORMSPREE -->
+                <div class="form-container">
+                    <h3 style="color: var(--accent-color); margin-bottom: 20px;">
+                        <i class="fas fa-envelope"></i> Solicita tu diseño personalizado
+                    </h3>
+                    
+                    <form id="artcadeForm" action="https://formspree.io/f/mqkvzdag" method="POST">
+                        <input type="text" name="nombre" placeholder="Tu nombre completo *" required>
+                        <input type="email" name="email" placeholder="tu@email.com *" required>
+                        <input type="tel" name="telefono" placeholder="Teléfono (opcional)">
+                        
+                        <input type="hidden" name="_subject" value="🚀 NUEVO CLIENTE ARTCADE - Solicitud de diseño">
+                        <input type="hidden" name="_replyto" value="videovalarcade@gmail.com">
+                        <input type="hidden" name="_cc" value="videovalarcade@gmail.com">
+                        
+                        <button type="submit" class="btn" id="submitBtn">
+                            <span id="btnText">Enviar solicitud</span>
+                            <span id="btnLoading" style="display: none;">
+                                <i class="fas fa-spinner fa-spin"></i> Enviando...
+                            </span>
+                        </button>
+                    </form>
+                    
+                    <p style="margin-top: 15px; font-size: 0.9rem; color: #aaa; text-align: center;">
+                        <i class="fas fa-shield-alt"></i> Tus datos están protegidos. Te responderemos en menos de 24h.
+                    </p>
+                </div>
+                
+                <!-- OPCIÓN WHATSAPP DIRECTO -->
+                <div style="text-align: center;">
+                    <p style="color: #ccc; margin-bottom: 15px; font-size: 1.1rem;">
+                        <i class="fas fa-bolt"></i> ¿Prefieres una respuesta inmediata?
+                    </p>
+                    
+                    <a href="https://wa.me/34644280599?text=Hola%20ARTCADE,%20vi%20vuestra%20web%20y%20quiero%20información%20para%20diseñar%20un%20panel%20arcade%20personalizado.%20¿Podemos%20hablar?" 
+                       class="btn btn-whatsapp" 
+                       target="_blank">
+                        <i class="fab fa-whatsapp"></i> Chatear por WhatsApp
+                    </a>
+                    
+                    <p style="margin-top: 20px; color: #aaa; font-size: 0.9rem;">
+                        O escribe directamente a: 
+                        <a href="mailto:videovalarcade@gmail.com" 
+                           style="color: var(--accent-color); text-decoration: none;">
+                            videovalarcade@gmail.com
+                        </a>
+                    </p>
+                </div>
             </div>
             
             <div class="counter" id="counter">
@@ -1409,10 +1463,10 @@
                     <a href="#" class="footer-logo">ARTCADE</a>
                     <p>Donde los recuerdos se convierten en controles. Paneles arcade premium de madera de arce, completamente personalizables.</p>
                     <div class="social-links">
-                        <a href="@artcade.spain"><i class="fab fa-instagram"></i></a>
-                        <a href="#"><i class="fab fa-facebook-f"></i></a>
-                        <a href="#"><i class="fab fa-pinterest-p"></i></a>
-                        <a href="#"><i class="fab fa-youtube"></i></a>
+                        <a href="https://instagram.com/artcade.spain" target="_blank"><i class="fab fa-instagram"></i></a>
+                        <a href="#" target="_blank"><i class="fab fa-facebook-f"></i></a>
+                        <a href="#" target="_blank"><i class="fab fa-pinterest-p"></i></a>
+                        <a href="#" target="_blank"><i class="fab fa-youtube"></i></a>
                     </div>
                 </div>
                 
@@ -1441,7 +1495,8 @@
                     <h4>Contacto</h4>
                     <ul>
                         <li><i class="fas fa-envelope"></i> videovalarcade@gmail.com</li>
-                        <li><i class="fas fa-phone"></i> +34 644280599</li>
+                        <li><i class="fas fa-phone"></i> +34 644 28 05 99</li>
+                        <li><i class="fab fa-whatsapp"></i> WhatsApp disponible</li>
                         <li><i class="fas fa-map-marker-alt"></i> Taller ARTCADE, Madrid</li>
                     </ul>
                 </div>
@@ -1458,7 +1513,7 @@
         <i class="fab fa-whatsapp"></i>
     </a>
 
-    <!-- Popup de salida - MEJORADO -->
+    <!-- Popup de salida -->
     <div class="exit-popup" id="exitPopup">
         <div class="popup-content">
             <h3>¿Seguro que quieres irte sin diseñar tu ARTCADE?</h3>
@@ -1509,27 +1564,65 @@
             });
         });
 
-        // Form submission
-        const submitCta = document.getElementById('submitCta');
+        // FORMULARIO FUNCIONAL CON FORMSPREE
+        const contactForm = document.getElementById('artcadeForm');
+        const submitBtn = document.getElementById('submitBtn');
+        const btnText = document.getElementById('btnText');
+        const btnLoading = document.getElementById('btnLoading');
         
-        submitCta.addEventListener('click', function(e) {
-            e.preventDefault();
-            const name = document.getElementById('name').value;
-            const email = document.getElementById('email').value;
-            
-            if (name && email) {
-                alert(`¡Gracias ${name}! Te contactaremos pronto en ${email} para comenzar el diseño de tu ARTCADE único.`);
-                document.getElementById('name').value = '';
-                document.getElementById('email').value = '';
+        if (contactForm) {
+            contactForm.addEventListener('submit', async function(e) {
+                e.preventDefault();
                 
-                // Increase counter
-                const counterNumber = document.getElementById('counterNumber');
-                let currentCount = parseInt(counterNumber.textContent);
-                counterNumber.textContent = currentCount + 1;
-            } else {
-                alert('Por favor, completa ambos campos para continuar.');
-            }
-        });
+                const nombre = this.querySelector('input[name="nombre"]').value;
+                const email = this.querySelector('input[name="email"]').value;
+                
+                if (!nombre || !email) {
+                    alert('Por favor, completa al menos el nombre y el email.');
+                    return;
+                }
+                
+                // Mostrar estado de carga
+                btnText.style.display = 'none';
+                btnLoading.style.display = 'inline';
+                submitBtn.disabled = true;
+                
+                try {
+                    // Enviar formulario a Formspree
+                    const formData = new FormData(this);
+                    
+                    const response = await fetch(this.action, {
+                        method: 'POST',
+                        body: formData,
+                        headers: {
+                            'Accept': 'application/json'
+                        }
+                    });
+                    
+                    if (response.ok) {
+                        // Éxito
+                        alert(`¡Perfecto ${nombre}! Hemos recibido tu solicitud.\nTe contactaremos en ${email} en menos de 24 horas.`);
+                        
+                        // Aumentar contador
+                        const counterNumber = document.getElementById('counterNumber');
+                        let currentCount = parseInt(counterNumber.textContent);
+                        counterNumber.textContent = currentCount + 1;
+                        
+                        // Resetear formulario
+                        this.reset();
+                    } else {
+                        alert('Hubo un error al enviar. Por favor, usa el botón de WhatsApp o escríbenos directamente a videovalarcade@gmail.com');
+                    }
+                } catch (error) {
+                    alert('Error de conexión. Por favor, usa WhatsApp o email directo.');
+                } finally {
+                    // Restaurar botón
+                    btnText.style.display = 'inline';
+                    btnLoading.style.display = 'none';
+                    submitBtn.disabled = false;
+                }
+            });
+        }
 
         // Counter animation
         function animateCounter() {

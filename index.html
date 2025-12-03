@@ -1,0 +1,1550 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ARTCADE - Paneles Arcades Artesanales Personalizados</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;500;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="icon" type="image/x-icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🕹️</text></svg>">
+    <style>
+        :root {
+            --primary-color: #0a0a0a;
+            --secondary-color: #8b4513;
+            --accent-color: #ffd700;
+            --accent-red: #ff3333;
+            --wood-color: #d2b48c;
+            --light-color: #f5f5f5;
+            --gray-color: #333333;
+            --transition: all 0.3s ease;
+            --border-radius: 8px;
+            --box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+            --font-title: 'Orbitron', sans-serif;
+            --font-text: 'Inter', sans-serif;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: var(--font-text);
+            line-height: 1.6;
+            color: var(--light-color);
+            background-color: var(--primary-color);
+            overflow-x: hidden;
+        }
+        
+        h1, h2, h3, h4, h5, h6 {
+            font-family: var(--font-title);
+            font-weight: 700;
+            line-height: 1.2;
+            margin-bottom: 1rem;
+        }
+        
+        .container {
+            width: 100%;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+        
+        section {
+            padding: 80px 0;
+        }
+        
+        .section-title {
+            text-align: center;
+            margin-bottom: 60px;
+            position: relative;
+        }
+        
+        .section-title h2 {
+            font-size: 2.5rem;
+            display: inline-block;
+            padding-bottom: 15px;
+        }
+        
+        .section-title h2:after {
+            content: '';
+            position: absolute;
+            width: 100px;
+            height: 4px;
+            background-color: var(--accent-color);
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+        }
+        
+        .btn {
+            display: inline-block;
+            padding: 15px 30px;
+            background-color: var(--accent-red);
+            color: var(--light-color);
+            border: none;
+            border-radius: var(--border-radius);
+            font-family: var(--font-title);
+            font-weight: 500;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: var(--transition);
+            text-decoration: none;
+            text-align: center;
+        }
+        
+        .btn:hover {
+            background-color: var(--accent-color);
+            color: var(--primary-color);
+            transform: translateY(-3px);
+            box-shadow: var(--box-shadow);
+        }
+        
+        .btn-secondary {
+            background-color: transparent;
+            border: 2px solid var(--accent-color);
+            color: var(--accent-color);
+        }
+        
+        .btn-secondary:hover {
+            background-color: var(--accent-color);
+            color: var(--primary-color);
+        }
+        
+        /* Header */
+        header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            z-index: 1000;
+            background-color: rgba(10, 10, 10, 0.95);
+            padding: 15px 0;
+            border-bottom: 1px solid rgba(139, 69, 19, 0.3);
+            transition: var(--transition);
+        }
+        
+        header.scrolled {
+            padding: 10px 0;
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.3);
+        }
+        
+        .header-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .logo {
+            font-family: var(--font-title);
+            font-size: 2rem;
+            font-weight: 700;
+            color: var(--accent-color);
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+        }
+        
+        .logo span {
+            color: var(--light-color);
+        }
+        
+        .nav-menu {
+            display: flex;
+            list-style: none;
+        }
+        
+        .nav-menu li {
+            margin-left: 30px;
+        }
+        
+        .nav-menu a {
+            color: var(--light-color);
+            text-decoration: none;
+            font-weight: 500;
+            transition: var(--transition);
+            font-size: 1rem;
+        }
+        
+        .nav-menu a:hover {
+            color: var(--accent-color);
+        }
+        
+        .mobile-menu-btn {
+            display: none;
+            background: none;
+            border: none;
+            color: var(--light-color);
+            font-size: 1.5rem;
+            cursor: pointer;
+        }
+        
+        /* Hero Section */
+        .hero {
+            height: 100vh;
+            display: flex;
+            align-items: center;
+            position: relative;
+            overflow: hidden;
+            background: linear-gradient(rgba(10, 10, 10, 0.8), rgba(10, 10, 10, 0.9)), url('https://images.unsplash.com/photo-1593305841991-05c297ba4575?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80') no-repeat center center/cover;
+        }
+        
+        .hero-content {
+            max-width: 800px;
+            z-index: 2;
+        }
+        
+        .hero h1 {
+            font-size: 3.5rem;
+            margin-bottom: 20px;
+            line-height: 1.1;
+        }
+        
+        .hero h1 span {
+            color: var(--accent-color);
+        }
+        
+        .hero p {
+            font-size: 1.3rem;
+            margin-bottom: 30px;
+            color: #ccc;
+        }
+        
+        .hero-btns {
+            display: flex;
+            gap: 20px;
+            flex-wrap: wrap;
+        }
+        
+        /* Problema/Solución */
+        .problem-solution {
+            background-color: #111;
+        }
+        
+        .ps-container {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 50px;
+            align-items: center;
+        }
+        
+        .problem-box, .solution-box {
+            padding: 40px;
+            border-radius: var(--border-radius);
+            height: 100%;
+        }
+        
+        .problem-box {
+            background-color: #222;
+            border-left: 5px solid var(--accent-red);
+        }
+        
+        .solution-box {
+            background-color: #1a1a1a;
+            border-left: 5px solid var(--accent-color);
+        }
+        
+        .ps-container h3 {
+            font-size: 1.8rem;
+            margin-bottom: 20px;
+        }
+        
+        .key-points {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+            margin-top: 30px;
+        }
+        
+        .point {
+            display: flex;
+            align-items: flex-start;
+            gap: 15px;
+        }
+        
+        .point i {
+            color: var(--accent-color);
+            font-size: 1.5rem;
+            margin-top: 5px;
+        }
+        
+        /* Proceso de Personalización */
+        .process-steps {
+            display: flex;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            gap: 20px;
+            margin-top: 50px;
+        }
+        
+        .step {
+            flex: 1;
+            min-width: 170px;
+            text-align: center;
+            padding: 30px 15px;
+            border-radius: var(--border-radius);
+            background-color: #111;
+            transition: var(--transition);
+        }
+        
+        .step:hover {
+            transform: translateY(-10px);
+            box-shadow: var(--box-shadow);
+        }
+        
+        .step-icon {
+            font-size: 3rem;
+            margin-bottom: 20px;
+            display: block;
+        }
+        
+        .step h4 {
+            font-size: 1.2rem;
+            margin-bottom: 10px;
+        }
+        
+        /* Galería */
+        .gallery {
+            background-color: #111;
+        }
+        
+        .gallery-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 30px;
+        }
+        
+        .gallery-item {
+            background-color: #1a1a1a;
+            border-radius: var(--border-radius);
+            overflow: hidden;
+            transition: var(--transition);
+        }
+        
+        .gallery-item:hover {
+            transform: translateY(-10px);
+            box-shadow: var(--box-shadow);
+        }
+        
+        .gallery-img {
+            height: 200px;
+            background-color: #333;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 4rem;
+            color: var(--accent-color);
+        }
+        
+        .gallery-content {
+            padding: 20px;
+        }
+        
+        .gallery-content h4 {
+            color: var(--accent-color);
+            margin-bottom: 10px;
+        }
+        
+        /* Cómo funciona */
+        .how-it-works {
+            position: relative;
+        }
+        
+        .panel-demo {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-top: 50px;
+            position: relative;
+        }
+        
+        .panel-image {
+            width: 600px;
+            height: 400px;
+            background-color: #222;
+            border-radius: 15px;
+            position: relative;
+            border: 15px solid var(--wood-color);
+            box-shadow: var(--box-shadow);
+        }
+        
+        .tooltip-dot {
+            position: absolute;
+            width: 20px;
+            height: 20px;
+            background-color: var(--accent-red);
+            border-radius: 50%;
+            cursor: pointer;
+            transition: var(--transition);
+        }
+        
+        .tooltip-dot:hover {
+            transform: scale(1.5);
+        }
+        
+        .tooltip-content {
+            position: absolute;
+            background-color: rgba(10, 10, 10, 0.9);
+            border: 1px solid var(--accent-color);
+            border-radius: var(--border-radius);
+            padding: 15px;
+            width: 200px;
+            opacity: 0;
+            visibility: hidden;
+            transition: var(--transition);
+            z-index: 10;
+        }
+        
+        .tooltip-dot:hover .tooltip-content {
+            opacity: 1;
+            visibility: visible;
+        }
+        
+        .dot-1 { top: 30%; left: 25%; }
+        .dot-2 { top: 30%; left: 50%; }
+        .dot-3 { top: 60%; left: 40%; }
+        .dot-4 { top: 60%; left: 65%; }
+        .dot-5 { top: 40%; left: 75%; }
+        
+        /* Testimonios */
+        .testimonials-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 30px;
+            margin-top: 50px;
+        }
+        
+        .testimonial {
+            background-color: #1a1a1a;
+            padding: 30px;
+            border-radius: var(--border-radius);
+            border-top: 4px solid var(--accent-color);
+        }
+        
+        .testimonial-content {
+            font-style: italic;
+            margin-bottom: 20px;
+        }
+        
+        .testimonial-author {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+        
+        .author-avatar {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            background-color: var(--wood-color);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            color: var(--primary-color);
+        }
+        
+        /* Opciones de Personalización */
+        .pricing-tiers {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 30px;
+            margin-top: 50px;
+        }
+        
+        .tier {
+            background-color: #1a1a1a;
+            padding: 40px 30px;
+            border-radius: var(--border-radius);
+            text-align: center;
+            transition: var(--transition);
+            border: 1px solid #333;
+        }
+        
+        .tier:hover {
+            transform: translateY(-10px);
+            border-color: var(--accent-color);
+            box-shadow: var(--box-shadow);
+        }
+        
+        .tier.popular {
+            border-color: var(--accent-color);
+            position: relative;
+        }
+        
+        .popular-badge {
+            position: absolute;
+            top: -15px;
+            left: 50%;
+            transform: translateX(-50%);
+            background-color: var(--accent-color);
+            color: var(--primary-color);
+            padding: 5px 15px;
+            border-radius: 20px;
+            font-family: var(--font-title);
+            font-size: 0.9rem;
+        }
+        
+        .tier h3 {
+            font-size: 1.8rem;
+            color: var(--accent-color);
+        }
+        
+        .tier-price {
+            font-size: 2.5rem;
+            font-family: var(--font-title);
+            margin: 20px 0;
+            color: var(--light-color);
+        }
+        
+        .tier-features {
+            list-style: none;
+            margin-bottom: 30px;
+        }
+        
+        .tier-features li {
+            padding: 10px 0;
+            border-bottom: 1px solid #333;
+        }
+        
+        .tier-features li:last-child {
+            border-bottom: none;
+        }
+        
+        /* FAQ */
+        .faq-container {
+            max-width: 800px;
+            margin: 50px auto 0;
+        }
+        
+        .faq-item {
+            background-color: #1a1a1a;
+            margin-bottom: 15px;
+            border-radius: var(--border-radius);
+            overflow: hidden;
+        }
+        
+        .faq-question {
+            padding: 20px;
+            cursor: pointer;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-weight: 600;
+        }
+        
+        .faq-question i {
+            transition: var(--transition);
+        }
+        
+        .faq-answer {
+            padding: 0 20px;
+            max-height: 0;
+            overflow: hidden;
+            transition: var(--transition);
+        }
+        
+        .faq-item.active .faq-answer {
+            padding: 0 20px 20px;
+            max-height: 300px;
+        }
+        
+        .faq-item.active .faq-question i {
+            transform: rotate(180deg);
+        }
+        
+        /* Proceso de Compra */
+        .purchase-process {
+            background-color: #111;
+        }
+        
+        .purchase-steps {
+            display: flex;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            gap: 20px;
+            margin-top: 50px;
+            position: relative;
+        }
+        
+        .purchase-steps:before {
+            content: '';
+            position: absolute;
+            top: 40px;
+            left: 50px;
+            right: 50px;
+            height: 3px;
+            background-color: var(--accent-color);
+            z-index: 1;
+        }
+        
+        .purchase-step {
+            flex: 1;
+            min-width: 180px;
+            text-align: center;
+            position: relative;
+            z-index: 2;
+        }
+        
+        .step-number {
+            width: 80px;
+            height: 80px;
+            background-color: var(--primary-color);
+            border: 3px solid var(--accent-color);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-family: var(--font-title);
+            font-size: 1.8rem;
+            margin: 0 auto 20px;
+            color: var(--accent-color);
+        }
+        
+        /* CTA Final */
+        .final-cta {
+            text-align: center;
+            background: linear-gradient(rgba(10, 10, 10, 0.9), rgba(10, 10, 10, 0.9)), url('https://images.unsplash.com/photo-1534423861386-85a16f5d13fd?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80') no-repeat center center/cover;
+        }
+        
+        .final-cta h2 {
+            font-size: 2.8rem;
+            margin-bottom: 20px;
+        }
+        
+        .final-cta p {
+            font-size: 1.2rem;
+            margin-bottom: 40px;
+            max-width: 700px;
+            margin-left: auto;
+            margin-right: auto;
+            color: #ccc;
+        }
+        
+        .cta-form {
+            max-width: 500px;
+            margin: 0 auto;
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+        
+        .cta-form input {
+            padding: 15px;
+            border-radius: var(--border-radius);
+            border: 1px solid #555;
+            background-color: rgba(255, 255, 255, 0.1);
+            color: var(--light-color);
+            font-family: var(--font-text);
+            font-size: 1rem;
+        }
+        
+        .cta-form input:focus {
+            outline: none;
+            border-color: var(--accent-color);
+        }
+        
+        .counter {
+            margin-top: 40px;
+            font-size: 1.2rem;
+            color: var(--accent-color);
+            font-family: var(--font-title);
+        }
+        
+        /* Footer */
+        footer {
+            background-color: #0a0a0a;
+            padding: 60px 0 30px;
+            border-top: 1px solid #333;
+        }
+        
+        .footer-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 40px;
+            margin-bottom: 40px;
+        }
+        
+        .footer-logo {
+            font-family: var(--font-title);
+            font-size: 2rem;
+            color: var(--accent-color);
+            margin-bottom: 20px;
+            display: inline-block;
+        }
+        
+        .footer-about p {
+            margin-bottom: 20px;
+            color: #aaa;
+        }
+        
+        .social-links {
+            display: flex;
+            gap: 15px;
+        }
+        
+        .social-links a {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 40px;
+            height: 40px;
+            background-color: #222;
+            color: var(--accent-color);
+            border-radius: 50%;
+            transition: var(--transition);
+        }
+        
+        .social-links a:hover {
+            background-color: var(--accent-color);
+            color: var(--primary-color);
+        }
+        
+        .footer-links h4 {
+            font-size: 1.3rem;
+            margin-bottom: 20px;
+            color: var(--light-color);
+        }
+        
+        .footer-links ul {
+            list-style: none;
+        }
+        
+        .footer-links li {
+            margin-bottom: 10px;
+        }
+        
+        .footer-links a {
+            color: #aaa;
+            text-decoration: none;
+            transition: var(--transition);
+        }
+        
+        .footer-links a:hover {
+            color: var(--accent-color);
+            padding-left: 5px;
+        }
+        
+        .copyright {
+            text-align: center;
+            padding-top: 30px;
+            border-top: 1px solid #333;
+            color: #777;
+            font-size: 0.9rem;
+        }
+        
+        /* WhatsApp Button */
+        .whatsapp-btn {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            width: 60px;
+            height: 60px;
+            background-color: #25D366;
+            color: white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.8rem;
+            text-decoration: none;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+            z-index: 999;
+            transition: var(--transition);
+        }
+        
+        .whatsapp-btn:hover {
+            transform: scale(1.1);
+            background-color: #128C7E;
+        }
+        
+        /* Popup de salida */
+        .exit-popup {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.8);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 2000;
+            opacity: 0;
+            visibility: hidden;
+            transition: var(--transition);
+        }
+        
+        .exit-popup.active {
+            opacity: 1;
+            visibility: visible;
+        }
+        
+        .popup-content {
+            background-color: #1a1a1a;
+            padding: 40px;
+            border-radius: var(--border-radius);
+            max-width: 500px;
+            text-align: center;
+            border: 2px solid var(--accent-color);
+            transform: translateY(20px);
+            transition: transform 0.5s ease;
+        }
+        
+        .exit-popup.active .popup-content {
+            transform: translateY(0);
+        }
+        
+        .popup-content h3 {
+            color: var(--accent-color);
+            margin-bottom: 20px;
+        }
+        
+        .popup-btns {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            margin-top: 30px;
+        }
+        
+        /* Responsive Design */
+        @media (max-width: 992px) {
+            .hero h1 {
+                font-size: 2.8rem;
+            }
+            
+            .ps-container {
+                grid-template-columns: 1fr;
+            }
+            
+            .process-steps, .purchase-steps {
+                flex-direction: column;
+            }
+            
+            .purchase-steps:before {
+                display: none;
+            }
+        }
+        
+        @media (max-width: 768px) {
+            .nav-menu {
+                position: fixed;
+                top: 70px;
+                left: 0;
+                width: 100%;
+                background-color: rgba(10, 10, 10, 0.98);
+                flex-direction: column;
+                align-items: center;
+                padding: 20px 0;
+                transform: translateY(-100%);
+                opacity: 0;
+                visibility: hidden;
+                transition: var(--transition);
+                border-bottom: 2px solid var(--accent-color);
+            }
+            
+            .nav-menu.active {
+                transform: translateY(0);
+                opacity: 1;
+                visibility: visible;
+            }
+            
+            .nav-menu li {
+                margin: 15px 0;
+            }
+            
+            .mobile-menu-btn {
+                display: block;
+            }
+            
+            .hero h1 {
+                font-size: 2.2rem;
+            }
+            
+            .hero p {
+                font-size: 1.1rem;
+            }
+            
+            .section-title h2 {
+                font-size: 2rem;
+            }
+            
+            .panel-image {
+                width: 100%;
+                height: 300px;
+            }
+            
+            .tooltip-content {
+                width: 150px;
+                font-size: 0.9rem;
+            }
+        }
+        
+        @media (max-width: 576px) {
+            .hero-btns {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+            
+            .step, .tier, .purchase-step {
+                min-width: 100%;
+            }
+            
+            .final-cta h2 {
+                font-size: 2.2rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header id="header">
+        <div class="container header-container">
+            <a href="#" class="logo">ART<span>CADE</span></a>
+            
+            <button class="mobile-menu-btn" id="mobileMenuBtn">
+                <i class="fas fa-bars"></i>
+            </button>
+            
+            <ul class="nav-menu" id="navMenu">
+                <li><a href="#problem-solution">Problema/Solución</a></li>
+                <li><a href="#process">Personalización</a></li>
+                <li><a href="#gallery">Galería</a></li>
+                <li><a href="#testimonials">Testimonios</a></li>
+                <li><a href="#pricing">Opciones</a></li>
+                <li><a href="#cta" class="btn btn-secondary">Diseña tu ARTCADE</a></li>
+            </ul>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="container hero-content">
+            <h1>No es un panel arcade. <span>Es tu historia grabada en madera</span></h1>
+            <p>ARTCADE: Donde cada botón cuenta un recuerdo, cada grabado inmortaliza un momento. Paneles arcade premium de madera de arce, completamente personalizables con diseños, textos o imágenes significativas.</p>
+            <div class="hero-btns">
+                <a href="#cta" class="btn">Diseña tu ARTCADE único</a>
+                <a href="#gallery" class="btn btn-secondary">Ver historias reales →</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Problema / Solución -->
+    <section id="problem-solution" class="problem-solution">
+        <div class="container">
+            <div class="section-title">
+                <h2>Más que un panel arcade</h2>
+            </div>
+            
+            <div class="ps-container">
+                <div class="problem-box">
+                    <h3>¿Cansado de productos gaming genéricos que no reflejan quién eres?</h3>
+                    <p>Los muebles de gaming actuales carecen de personalidad, están hechos en masa con materiales pobres y no tienen conexión emocional con sus dueños.</p>
+                </div>
+                
+                <div class="solution-box">
+                    <h3>ARTCADE transforma tu nostalgia en arte funcional personalizado</h3>
+                    <p>Creemos que los objetos que te rodean deben contar tu historia. Por eso diseñamos paneles arcade únicos que combinan artesanía, tecnología y significado personal.</p>
+                    
+                    <div class="key-points">
+                        <div class="point">
+                            <i class="fas fa-palette"></i>
+                            <div>
+                                <h4>Diseño único</h4>
+                                <p>Cada panel cuenta TU historia a través de grabados personalizados.</p>
+                            </div>
+                        </div>
+                        <div class="point">
+                            <i class="fas fa-gem"></i>
+                            <div>
+                                <h4>Calidad premium</h4>
+                                <p>Madera de arce maciza con grabado láser de alta precisión.</p>
+                            </div>
+                        </div>
+                        <div class="point">
+                            <i class="fas fa-puzzle-piece"></i>
+                            <div>
+                                <h4>Integración perfecta</h4>
+                                <p>Diseñado para exhibir con orgullo, no para esconder en el sótano.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Proceso de Personalización -->
+    <section id="process" class="process">
+        <div class="container">
+            <div class="section-title">
+                <h2>Tu historia, paso a paso</h2>
+            </div>
+            
+            <div class="process-steps">
+                <div class="step">
+                    <span class="step-icon">💬</span>
+                    <h4>Cuéntanos tu historia</h4>
+                    <p>Comparte la idea, momento o personas que quieres inmortalizar.</p>
+                </div>
+                <div class="step">
+                    <span class="step-icon">✏️</span>
+                    <h4>Diseñamos tu idea</h4>
+                    <p>Creamos un boceto único que capture la esencia de tu historia.</p>
+                </div>
+                <div class="step">
+                    <span class="step-icon">🔥</span>
+                    <h4>Grabamos en madera</h4>
+                    <p>Utilizamos láser de precisión para grabar tu diseño en madera de arce.</p>
+                </div>
+                <div class="step">
+                    <span class="step-icon">🛠️</span>
+                    <h4>Ensamblamos con amor</h4>
+                    <p>Cada componente se integra cuidadosamente a mano.</p>
+                </div>
+                <div class="step">
+                    <span class="step-icon">🎁</span>
+                    <h4>Entregamos magia</h4>
+                    <p>Recibes una pieza única lista para crear nuevos recuerdos.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Galería -->
+    <section id="gallery" class="gallery">
+        <div class="container">
+            <div class="section-title">
+                <h2>Historias grabadas en madera</h2>
+            </div>
+            
+            <div class="gallery-container">
+                <div class="gallery-item">
+                    <div class="gallery-img">J+M</div>
+                    <div class="gallery-content">
+                        <h4>Para Juan y María - 15 años juntos</h4>
+                        <p>Iniciales entrelazadas con la fecha de su aniversario. Un regalo que celebra una década y media de amor y complicidad.</p>
+                    </div>
+                </div>
+                
+                <div class="gallery-item">
+                    <div class="gallery-img">AT → PS</div>
+                    <div class="gallery-content">
+                        <h4>El Legado Gamer</h4>
+                        <p>Evolución de consolas desde el Atari hasta PlayStation. Un recorrido por la historia gaming personal de su dueño.</p>
+                    </div>
+                </div>
+                
+                <div class="gallery-item">
+                    <div class="gallery-img">🐾</div>
+                    <div class="gallery-content">
+                        <h4>Huellas de Toby</h4>
+                        <p>Las huellas de su fiel compañero canino grabadas junto a su nombre. Un homenaje a años de amistad incondicional.</p>
+                    </div>
+                </div>
+                
+                <div class="gallery-item">
+                    <div class="gallery-img">📍</div>
+                    <div class="gallery-content">
+                        <h4>Coordenadas del amor</h4>
+                        <p>Las coordenadas exactas del lugar donde se conocieron. Un recordatorio permanente del inicio de su historia.</p>
+                    </div>
+                </div>
+                
+                <div class="gallery-item">
+                    <div class="gallery-img">✨</div>
+                    <div class="gallery-content">
+                        <h4>Arte abstracto personal</h4>
+                        <p>Diseño geométrico con patrones que representan los viajes más significativos de su vida. Belleza con significado oculto.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Cómo funciona -->
+    <section id="how-it-works" class="how-it-works">
+        <div class="container">
+            <div class="section-title">
+                <h2>Calidad que se siente, detalles que emocionan</h2>
+            </div>
+            
+            <div class="panel-demo">
+                <div class="panel-image">
+                    <!-- Puntos interactivos -->
+                    <div class="tooltip-dot dot-1">
+                        <div class="tooltip-content">
+                            <h5>Madera de arce maciza</h5>
+                            <p>Seleccionada por su grano fino y durabilidad excepcional.</p>
+                        </div>
+                    </div>
+                    
+                    <div class="tooltip-dot dot-2">
+                        <div class="tooltip-content">
+                            <h5>Grabado láser de alta precisión</h5>
+                            <p>Detalles nítidos que perdurarán para siempre.</p>
+                        </div>
+                    </div>
+                    
+                    <div class="tooltip-dot dot-3">
+                        <div class="tooltip-content">
+                            <h5>Botones premium iluminados</h5>
+                            <p>Respuesta táctil perfecta y retroiluminación ajustable.</p>
+                        </div>
+                    </div>
+                    
+                    <div class="tooltip-dot dot-4">
+                        <div class="tooltip-content">
+                            <h5>Raspberry Pi 3B+</h5>
+                            <p>Tú eliges los juegos (te ayudamos con la instalación legal).</p>
+                        </div>
+                    </div>
+                    
+                    <div class="tooltip-dot dot-5">
+                        <div class="tooltip-content">
+                            <h5>Conexión HDMI + USB-C</h5>
+                            <p>Plug & play. Conecta a cualquier TV o monitor moderno.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Testimonios -->
+    <section id="testimonials" class="testimonials">
+        <div class="container">
+            <div class="section-title">
+                <h2>Historias que se convierten en recuerdos</h2>
+            </div>
+            
+            <div class="testimonials-container">
+                <div class="testimonial">
+                    <div class="testimonial-content">
+                        "Por fin algo gaming que mi mujer deja en el salón. La personalización con las iniciales de nuestros hijos fue mágica. Cada vez que juego, siento que están conmigo."
+                    </div>
+                    <div class="testimonial-author">
+                        <div class="author-avatar">C</div>
+                        <div>
+                            <h4>Carlos, 42</h4>
+                            <p>Diseño "Legado familiar"</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="testimonial">
+                    <div class="testimonial-content">
+                        "El mejor regalo que le he hecho. Lloró cuando vio el diseño con nuestro viaje a Japón. No es solo un arcade, es un trozo de nuestra historia en el salón."
+                    </div>
+                    <div class="testimonial-author">
+                        <div class="author-avatar">A</div>
+                        <div>
+                            <h4>Ana, 38</h4>
+                            <p>Comprando para su marido</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="testimonial">
+                    <div class="testimonial-content">
+                        "Revivo mi infancia con la calidad que merezco ahora. Una inversión en felicidad. Cada detalle, desde la madera al grabado, habla de cuidado y pasión."
+                    </div>
+                    <div class="testimonial-author">
+                        <div class="author-avatar">R</div>
+                        <div>
+                            <h4>Roberto, 50</h4>
+                            <p>Diseño "Evolución Gamer"</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Opciones de Personalización -->
+    <section id="pricing" class="pricing">
+        <div class="container">
+            <div class="section-title">
+                <h2>Elige el nivel de tu historia</h2>
+            </div>
+            
+            <div class="pricing-tiers">
+                <div class="tier">
+                    <h3>FIRMA</h3>
+                    <div class="tier-price">+50€</div>
+                    <ul class="tier-features">
+                        <li>Nombre, fecha o iniciales</li>
+                        <li>Hasta 2 elementos personales</li>
+                        <li>Fuente estándar</li>
+                        <li>Packaging básico</li>
+                    </ul>
+                    <a href="#gallery" class="btn btn-secondary">Ver ejemplos</a>
+                </div>
+                
+                <div class="tier popular">
+                    <div class="popular-badge">MÁS POPULAR</div>
+                    <h3>HISTORIA</h3>
+                    <div class="tier-price">+100€</div>
+                    <ul class="tier-features">
+                        <li>Diseño simple personalizado</li>
+                        <li>Hasta 5 elementos</li>
+                        <li>Elección de fuente</li>
+                        <li>Packaging premium</li>
+                        <li>3 revisiones de diseño</li>
+                    </ul>
+                    <a href="#gallery" class="btn">Ver ejemplos</a>
+                </div>
+                
+                <div class="tier">
+                    <h3>LEGADO</h3>
+                    <div class="tier-price">+200€</div>
+                    <ul class="tier-features">
+                        <li>Diseño complejo personalizado</li>
+                        <li>Elementos ilimitados</li>
+                        <li>Fuente y color personalizados</li>
+                        <li>Packaging de coleccionista</li>
+                        <li>Video del proceso de fabricación</li>
+                        <li>Certificado de autenticidad</li>
+                    </ul>
+                    <a href="#gallery" class="btn btn-secondary">Ver ejemplos</a>
+                </div>
+            </div>
+            
+            <p style="text-align: center; margin-top: 40px; color: #aaa;">Precio base del panel: 375-400€ + personalización seleccionada</p>
+        </div>
+    </section>
+
+    <!-- FAQ -->
+    <section id="faq" class="faq">
+        <div class="container">
+            <div class="section-title">
+                <h2>Preguntas frecuentes</h2>
+            </div>
+            
+            <div class="faq-container">
+                <div class="faq-item">
+                    <div class="faq-question">
+                        <span>¿Se incluyen juegos con el panel?</span>
+                        <i class="fas fa-chevron-down"></i>
+                    </div>
+                    <div class="faq-answer">
+                        <p>No, por temas legales. Pero te guiamos paso a paso para cargar tus juegos favoritos de forma 100% legal. Te proporcionamos recursos y tutoriales para que puedas disfrutar de la biblioteca que desees.</p>
+                    </div>
+                </div>
+                
+                <div class="faq-item">
+                    <div class="faq-question">
+                        <span>¿Cuánto tiempo tarda el proceso completo?</span>
+                        <i class="fas fa-chevron-down"></i>
+                    </div>
+                    <div class="faq-answer">
+                        <p>Entre 3 y 4 semanas desde la aprobación del diseño final. Creemos que la artesanía no tiene prisa y cada etapa requiere el tiempo necesario para garantizar la perfección. Tu paciencia será recompensada con una pieza única.</p>
+                    </div>
+                </div>
+                
+                <div class="faq-item">
+                    <div class="faq-question">
+                        <span>¿Puedo cambiar mi diseño una vez aprobado?</span>
+                        <i class="fas fa-chevron-down"></i>
+                    </div>
+                    <div class="faq-answer">
+                        <p>Sí, permitimos hasta 3 revisiones del boceto antes de pasar a la fase de grabado. Una vez comenzado el grabado en la madera, los cambios no son posibles, por eso trabajamos contigo hasta que estés 100% satisfecho con el diseño.</p>
+                    </div>
+                </div>
+                
+                <div class="faq-item">
+                    <div class="faq-question">
+                        <span>¿Realizan envíos internacionales?</span>
+                        <i class="fas fa-chevron-down"></i>
+                    </div>
+                    <div class="faq-answer">
+                        <p>De momento solo realizamos envíos a España peninsular debido a la fragilidad y valor sentimental de cada pieza. Estamos trabajando para expandirnos a otros países próximamente.</p>
+                    </div>
+                </div>
+                
+                <div class="faq-item">
+                    <div class="faq-question">
+                        <span>¿Qué garantía ofrecen?</span>
+                        <i class="fas fa-chevron-down"></i>
+                    </div>
+                    <div class="faq-answer">
+                        <p>Ofrecemos 2 años de garantía por defectos de fabricación. La madera y los componentes electrónicos están cubiertos. El grabado láser tiene garantía de por vida contra desgaste no natural.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Proceso de Compra -->
+    <section id="purchase" class="purchase-process">
+        <div class="container">
+            <div class="section-title">
+                <h2>Así de simple es empezar tu historia</h2>
+            </div>
+            
+            <div class="purchase-steps">
+                <div class="purchase-step">
+                    <div class="step-number">1</div>
+                    <h4>Reserva tu diseño</h4>
+                    <p>50€ depósito para comenzar el proceso creativo.</p>
+                </div>
+                
+                <div class="purchase-step">
+                    <div class="step-number">2</div>
+                    <h4>Diseñamos juntos</h4>
+                    <p>Videollamada o chat para dar vida a tu idea.</p>
+                </div>
+                
+                <div class="purchase-step">
+                    <div class="step-number">3</div>
+                    <h4>Aprobación final</h4>
+                    <p>Revisamos cada detalle hasta tu OK definitivo.</p>
+                </div>
+                
+                <div class="purchase-step">
+                    <div class="step-number">4</div>
+                    <h4>Fabricamos tu ARTCADE</h4>
+                    <p>2-3 semanas de artesanía cuidadosa.</p>
+                </div>
+                
+                <div class="purchase-step">
+                    <div class="step-number">5</div>
+                    <h4>¡Llega la magia!</h4>
+                    <p>Envío con seguimiento y embalaje especial.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA Final -->
+    <section id="cta" class="final-cta">
+        <div class="container">
+            <h2>Tu historia merece ser contada. Y jugada.</h2>
+            <p>Menos de 5 personas al mes pueden tener un ARTCADE. Cada pieza es única y requiere horas de dedicación artesanal. ¿Serás una de las personas que convierten sus recuerdos en controles?</p>
+            
+            <div class="cta-form">
+                <input type="text" id="name" placeholder="Tu nombre" required>
+                <input type="email" id="email" placeholder="Tu email" required>
+                <button type="submit" class="btn" id="submitCta">Quiero empezar mi diseño</button>
+            </div>
+            
+            <div class="counter" id="counter">
+                Este mes ya hemos creado: <span id="counterNumber">7</span> historias
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="footer-container">
+                <div class="footer-about">
+                    <a href="#" class="footer-logo">ARTCADE</a>
+                    <p>Donde los recuerdos se convierten en controles. Paneles arcade premium de madera de arce, completamente personalizables.</p>
+                    <div class="social-links">
+                        <a href="@artcade.spain"><i class="fab fa-instagram"></i></a>
+                        <a href="#"><i class="fab fa-facebook-f"></i></a>
+                        <a href="#"><i class="fab fa-pinterest-p"></i></a>
+                        <a href="#"><i class="fab fa-youtube"></i></a>
+                    </div>
+                </div>
+                
+                <div class="footer-links">
+                    <h4>Enlaces rápidos</h4>
+                    <ul>
+                        <li><a href="#problem-solution">Problema/Solución</a></li>
+                        <li><a href="#process">Proceso</a></li>
+                        <li><a href="#gallery">Galería</a></li>
+                        <li><a href="#pricing">Opciones</a></li>
+                        <li><a href="#faq">FAQ</a></li>
+                    </ul>
+                </div>
+                
+                <div class="footer-links">
+                    <h4>Legal</h4>
+                    <ul>
+                        <li><a href="#">Política de privacidad</a></li>
+                        <li><a href="#">Términos y condiciones</a></li>
+                        <li><a href="#">Política de envíos</a></li>
+                        <li><a href="#">Garantía</a></li>
+                    </ul>
+                </div>
+                
+                <div class="footer-links">
+                    <h4>Contacto</h4>
+                    <ul>
+                        <li><i class="fas fa-envelope"></i> videovalarcade@gmail.com</li>
+                        <li><i class="fas fa-phone"></i> +34 644280599</li>
+                        <li><i class="fas fa-map-marker-alt"></i> Taller ARTCADE, Madrid</li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="copyright">
+                <p>&copy; 2023 ARTCADE. Todos los derechos reservados. Hecho con ❤️ y 🕹️ en España.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- WhatsApp Button -->
+    <a href="https://wa.me/34644280599?text=Hola%20ARTCADE,%20me%20interesa%20diseñar%20un%20panel%20personalizado" class="whatsapp-btn" target="_blank">
+        <i class="fab fa-whatsapp"></i>
+    </a>
+
+    <!-- Popup de salida -->
+    <div class="exit-popup" id="exitPopup">
+        <div class="popup-content">
+            <h3>¿Seguro que quieres irte sin diseñar tu ARTCADE?</h3>
+            <p>Tu historia merece ser contada. Solo necesitas 2 minutos para comenzar el diseño de tu panel arcade único.</p>
+            <div class="popup-btns">
+                <a href="#cta" class="btn" id="stayBtn">Quiero diseñarlo</a>
+                <button class="btn btn-secondary" id="leaveBtn">Continuar saliendo</button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Header scroll effect
+        window.addEventListener('scroll', function() {
+            const header = document.getElementById('header');
+            if (window.scrollY > 100) {
+                header.classList.add('scrolled');
+            } else {
+                header.classList.remove('scrolled');
+            }
+        });
+
+        // Mobile menu toggle
+        const mobileMenuBtn = document.getElementById('mobileMenuBtn');
+        const navMenu = document.getElementById('navMenu');
+        
+        mobileMenuBtn.addEventListener('click', function() {
+            navMenu.classList.toggle('active');
+            mobileMenuBtn.innerHTML = navMenu.classList.contains('active') 
+                ? '<i class="fas fa-times"></i>' 
+                : '<i class="fas fa-bars"></i>';
+        });
+
+        // FAQ accordion
+        const faqQuestions = document.querySelectorAll('.faq-question');
+        
+        faqQuestions.forEach(question => {
+            question.addEventListener('click', function() {
+                const item = this.parentElement;
+                item.classList.toggle('active');
+                
+                // Close other open items
+                faqQuestions.forEach(otherQuestion => {
+                    if (otherQuestion !== this) {
+                        otherQuestion.parentElement.classList.remove('active');
+                    }
+                });
+            });
+        });
+
+        // Form submission
+        const submitCta = document.getElementById('submitCta');
+        
+        submitCta.addEventListener('click', function(e) {
+            e.preventDefault();
+            const name = document.getElementById('name').value;
+            const email = document.getElementById('email').value;
+            
+            if (name && email) {
+                alert(`¡Gracias ${name}! Te contactaremos pronto en ${email} para comenzar el diseño de tu ARTCADE único.`);
+                document.getElementById('name').value = '';
+                document.getElementById('email').value = '';
+                
+                // Increase counter
+                const counterNumber = document.getElementById('counterNumber');
+                let currentCount = parseInt(counterNumber.textContent);
+                counterNumber.textContent = currentCount + 1;
+            } else {
+                alert('Por favor, completa ambos campos para continuar.');
+            }
+        });
+
+        // Counter animation
+        function animateCounter() {
+            const counter = document.getElementById('counterNumber');
+            let count = 0;
+            const target = 7;
+            const increment = target / 50;
+            
+            const timer = setInterval(() => {
+                count += increment;
+                if (count >= target) {
+                    count = target;
+                    clearInterval(timer);
+                }
+                counter.textContent = Math.floor(count);
+            }, 40);
+        }
+
+        // Exit intent popup
+        let popupShown = false;
+        
+        document.addEventListener('mouseout', function(e) {
+            if (!popupShown && e.clientY < 10) {
+                document.getElementById('exitPopup').classList.add('active');
+                popupShown = true;
+            }
+        });
+        
+        document.getElementById('stayBtn').addEventListener('click', function() {
+            document.getElementById('exitPopup').classList.remove('active');
+        });
+        
+        document.getElementById('leaveBtn').addEventListener('click', function() {
+            document.getElementById('exitPopup').classList.remove('active');
+        });
+
+        // Smooth scrolling for anchor links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function(e) {
+                e.preventDefault();
+                
+                if (this.getAttribute('href') === '#') return;
+                
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    // Close mobile menu if open
+                    navMenu.classList.remove('active');
+                    mobileMenuBtn.innerHTML = '<i class="fas fa-bars"></i>';
+                    
+                    window.scrollTo({
+                        top: target.offsetTop - 80,
+                        behavior: 'smooth'
+                    });
+                }
+            });
+        });
+
+        // Initialize animations on load
+        window.addEventListener('load', function() {
+            animateCounter();
+            
+            // Animate steps on scroll
+            const observerOptions = {
+                threshold: 0.2
+            };
+            
+            const observer = new IntersectionObserver(function(entries) {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('animated');
+                    }
+                });
+            }, observerOptions);
+            
+            // Observe elements to animate
+            document.querySelectorAll('.step, .gallery-item, .testimonial, .tier').forEach(el => {
+                observer.observe(el);
+            });
+        });
+    </script>
+</body>
+</html>

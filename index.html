@@ -182,7 +182,7 @@
             cursor: pointer;
         }
         
-        /* Hero Section - IMAGEN CAMBIADA: STREET FIGHTER ARCADE */
+        /* Hero Section */
         .hero {
             height: 100vh;
             display: flex;
@@ -308,7 +308,7 @@
             margin-bottom: 10px;
         }
         
-        /* Galería - IMÁGENES MEJORADAS */
+        /* Galería */
         .gallery {
             background-color: #111;
         }
@@ -355,7 +355,6 @@
             z-index: 1;
         }
         
-        /* Imágenes específicas para cada historia */
         .story-1 {
             background-image: url('https://cdn-icons-png.flaticon.com/512/747/747758.png');
         }
@@ -642,7 +641,7 @@
             color: var(--accent-color);
         }
         
-        /* CTA Final - IMAGEN CAMBIADA: TETRIS ARCADE */
+        /* CTA Final - NUEVO DISEÑO */
         .final-cta {
             text-align: center;
             background: linear-gradient(rgba(10, 10, 10, 0.9), rgba(10, 10, 10, 0.9)), 
@@ -665,21 +664,58 @@
             color: #ccc;
         }
         
-        .cta-form {
-            max-width: 500px;
-            margin: 0 auto;
+        .contact-options {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+            max-width: 1000px;
+            margin: 0 auto 40px;
         }
         
-        .form-container {
-            background: rgba(26, 26, 26, 0.9);
+        .contact-card {
+            background: rgba(26, 26, 26, 0.95);
             padding: 30px;
             border-radius: var(--border-radius);
-            border: 1px solid var(--accent-color);
-            box-shadow: var(--box-shadow);
-            margin-bottom: 30px;
+            border: 2px solid var(--accent-color);
+            transition: var(--transition);
         }
         
-        .cta-form input {
+        .contact-card:hover {
+            transform: translateY(-5px);
+            box-shadow: var(--box-shadow);
+        }
+        
+        .contact-card.whatsapp {
+            border-color: #25D366;
+        }
+        
+        .contact-card.email {
+            border-color: #ff3333;
+        }
+        
+        .contact-card.direct {
+            border-color: var(--accent-color);
+        }
+        
+        .contact-icon {
+            font-size: 3rem;
+            margin-bottom: 20px;
+            display: block;
+        }
+        
+        .contact-card.whatsapp .contact-icon {
+            color: #25D366;
+        }
+        
+        .contact-card.email .contact-icon {
+            color: #ff3333;
+        }
+        
+        .contact-card.direct .contact-icon {
+            color: var(--accent-color);
+        }
+        
+        .contact-form input {
             padding: 15px;
             border-radius: var(--border-radius);
             border: 1px solid #555;
@@ -691,7 +727,7 @@
             margin-bottom: 15px;
         }
         
-        .cta-form input:focus {
+        .contact-form input:focus {
             outline: none;
             border-color: var(--accent-color);
         }
@@ -699,11 +735,35 @@
         .btn-whatsapp {
             background: linear-gradient(45deg, #25D366, #128C7E);
             border: none;
-            margin-top: 10px;
+            width: 100%;
+            padding: 18px;
+            font-size: 1.1rem;
         }
         
-        .btn-whatsapp:hover {
-            background: linear-gradient(45deg, #128C7E, #25D366);
+        .btn-email {
+            background: linear-gradient(45deg, #ff3333, #cc0000);
+            border: none;
+            width: 100%;
+            padding: 18px;
+            font-size: 1.1rem;
+        }
+        
+        .btn-direct {
+            background: var(--accent-color);
+            color: var(--primary-color);
+            border: none;
+            width: 100%;
+            padding: 18px;
+            font-size: 1.1rem;
+        }
+        
+        .success-message {
+            background: rgba(37, 211, 102, 0.1);
+            border: 1px solid #25D366;
+            border-radius: var(--border-radius);
+            padding: 20px;
+            margin-top: 20px;
+            display: none;
         }
         
         .counter {
@@ -888,6 +948,10 @@
             .purchase-steps:before {
                 display: none;
             }
+            
+            .contact-options {
+                grid-template-columns: 1fr;
+            }
         }
         
         @media (max-width: 768px) {
@@ -946,10 +1010,6 @@
             .gallery-img {
                 background-size: 100px;
             }
-            
-            .form-container {
-                padding: 20px;
-            }
         }
         
         @media (max-width: 576px) {
@@ -968,6 +1028,10 @@
             
             .popup-btns {
                 flex-direction: column;
+            }
+            
+            .contact-card {
+                padding: 20px;
             }
         }
     </style>
@@ -1087,7 +1151,7 @@
         </div>
     </section>
 
-    <!-- Galería CON IMÁGENES MEJORADAS -->
+    <!-- Galería -->
     <section id="gallery" class="gallery">
         <div class="container">
             <div class="section-title">
@@ -1392,60 +1456,60 @@
         </div>
     </section>
 
-    <!-- CTA Final CON FORMULARIO FUNCIONAL -->
+    <!-- CTA Final CON MÚLTIPLES OPCIONES DE CONTACTO -->
     <section id="cta" class="final-cta">
         <div class="container">
             <h2>Tu historia merece ser contada. Y jugada.</h2>
             <p>Menos de 5 personas al mes pueden tener un ARTCADE. Cada pieza es única y requiere horas de dedicación artesanal. ¿Serás una de las personas que convierten sus recuerdos en controles?</p>
             
-            <div class="cta-form">
-                <!-- FORMULARIO PRINCIPAL CON FORMSPREE -->
-                <div class="form-container">
-                    <h3 style="color: var(--accent-color); margin-bottom: 20px;">
-                        <i class="fas fa-envelope"></i> Solicita tu diseño personalizado
-                    </h3>
-                    
-                    <form id="artcadeForm" action="https://formspree.io/f/mqkvzdag" method="POST">
-                        <input type="text" name="nombre" placeholder="Tu nombre completo *" required>
-                        <input type="email" name="email" placeholder="tu@email.com *" required>
-                        <input type="tel" name="telefono" placeholder="Teléfono (opcional)">
-                        
-                        <input type="hidden" name="_subject" value="🚀 NUEVO CLIENTE ARTCADE - Solicitud de diseño">
-                        <input type="hidden" name="_replyto" value="videovalarcade@gmail.com">
-                        <input type="hidden" name="_cc" value="videovalarcade@gmail.com">
-                        
-                        <button type="submit" class="btn" id="submitBtn">
-                            <span id="btnText">Enviar solicitud</span>
-                            <span id="btnLoading" style="display: none;">
-                                <i class="fas fa-spinner fa-spin"></i> Enviando...
-                            </span>
-                        </button>
-                    </form>
-                    
-                    <p style="margin-top: 15px; font-size: 0.9rem; color: #aaa; text-align: center;">
-                        <i class="fas fa-shield-alt"></i> Tus datos están protegidos. Te responderemos en menos de 24h.
-                    </p>
-                </div>
-                
-                <!-- OPCIÓN WHATSAPP DIRECTO -->
-                <div style="text-align: center;">
-                    <p style="color: #ccc; margin-bottom: 15px; font-size: 1.1rem;">
-                        <i class="fas fa-bolt"></i> ¿Prefieres una respuesta inmediata?
-                    </p>
-                    
+            <div class="contact-options">
+                <!-- OPCIÓN 1: WHATSAPP -->
+                <div class="contact-card whatsapp">
+                    <i class="fab fa-whatsapp contact-icon"></i>
+                    <h3>WhatsApp Directo</h3>
+                    <p>Respuesta inmediata. Chatea con nosotros directamente.</p>
                     <a href="https://wa.me/34644280599?text=Hola%20ARTCADE,%20vi%20vuestra%20web%20y%20quiero%20información%20para%20diseñar%20un%20panel%20arcade%20personalizado.%20¿Podemos%20hablar?" 
                        class="btn btn-whatsapp" 
                        target="_blank">
-                        <i class="fab fa-whatsapp"></i> Chatear por WhatsApp
+                        <i class="fab fa-whatsapp"></i> Escribir por WhatsApp
                     </a>
+                </div>
+                
+                <!-- OPCIÓN 2: EMAIL DIRECTO -->
+                <div class="contact-card email">
+                    <i class="fas fa-envelope contact-icon"></i>
+                    <h3>Email Directo</h3>
+                    <p>Envíanos un email directamente desde tu cliente.</p>
+                    <button class="btn btn-email" onclick="openEmailClient()">
+                        <i class="fas fa-paper-plane"></i> Abrir Email
+                    </button>
+                    <div class="success-message" id="emailSuccess">
+                        <i class="fas fa-check-circle"></i>
+                        <p>Se abrirá tu programa de email con un mensaje predefinido.</p>
+                    </div>
+                </div>
+                
+                <!-- OPCIÓN 3: SOLICITUD ONLINE -->
+                <div class="contact-card direct">
+                    <i class="fas fa-edit contact-icon"></i>
+                    <h3>Solicitud Online</h3>
+                    <p>Déjanos tus datos y te contactamos nosotros.</p>
                     
-                    <p style="margin-top: 20px; color: #aaa; font-size: 0.9rem;">
-                        O escribe directamente a: 
-                        <a href="mailto:videovalarcade@gmail.com" 
-                           style="color: var(--accent-color); text-decoration: none;">
-                            videovalarcade@gmail.com
-                        </a>
-                    </p>
+                    <div class="contact-form">
+                        <input type="text" id="contactName" placeholder="Tu nombre *" required>
+                        <input type="email" id="contactEmail" placeholder="tu@email.com *" required>
+                        <input type="tel" id="contactPhone" placeholder="Teléfono (opcional)">
+                        
+                        <button class="btn btn-direct" onclick="submitContactRequest()">
+                            <i class="fas fa-rocket"></i> Enviar Solicitud
+                        </button>
+                    </div>
+                    
+                    <div class="success-message" id="formSuccess">
+                        <i class="fas fa-check-circle"></i>
+                        <h4>¡Solicitud enviada!</h4>
+                        <p id="successDetails">Te contactaremos en menos de 24 horas.</p>
+                    </div>
                 </div>
             </div>
             
@@ -1513,18 +1577,6 @@
         <i class="fab fa-whatsapp"></i>
     </a>
 
-    <!-- Popup de salida -->
-    <div class="exit-popup" id="exitPopup">
-        <div class="popup-content">
-            <h3>¿Seguro que quieres irte sin diseñar tu ARTCADE?</h3>
-            <p>Tu historia merece ser contada. Solo necesitas 2 minutos para comenzar el diseño de tu panel arcade único.</p>
-            <div class="popup-btns">
-                <a href="#cta" class="btn" id="stayBtn">Quiero diseñarlo</a>
-                <button class="btn btn-secondary" id="leaveBtn">Continuar saliendo</button>
-            </div>
-        </div>
-    </div>
-
     <script>
         // Header scroll effect
         window.addEventListener('scroll', function() {
@@ -1564,67 +1616,124 @@
             });
         });
 
-        // FORMULARIO FUNCIONAL CON FORMSPREE
-        const contactForm = document.getElementById('artcadeForm');
-        const submitBtn = document.getElementById('submitBtn');
-        const btnText = document.getElementById('btnText');
-        const btnLoading = document.getElementById('btnLoading');
+        // =================== FUNCIONES DE CONTACTO ===================
         
-        if (contactForm) {
-            contactForm.addEventListener('submit', async function(e) {
-                e.preventDefault();
+        // 1. EMAIL CLIENT
+        function openEmailClient() {
+            const name = prompt("Por favor, introduce tu nombre para el email:", "Cliente ARTCADE");
+            
+            if (name) {
+                const subject = encodeURIComponent(`Solicitud ARTCADE - ${name}`);
+                const body = encodeURIComponent(
+                    `Hola ARTCADE,\n\nMi nombre es ${name}.\n\nMe interesa diseñar un panel arcade personalizado. Por favor, envíenme más información sobre:\n\n1. Proceso de personalización\n2. Precios y opciones\n3. Tiempos de entrega\n4. Ejemplos de trabajos anteriores\n\nSaludos,\n${name}`
+                );
                 
-                const nombre = this.querySelector('input[name="nombre"]').value;
-                const email = this.querySelector('input[name="email"]').value;
+                window.open(`mailto:videovalarcade@gmail.com?subject=${subject}&body=${body}`, '_blank');
                 
-                if (!nombre || !email) {
-                    alert('Por favor, completa al menos el nombre y el email.');
-                    return;
-                }
+                // Mostrar mensaje de éxito
+                document.getElementById('emailSuccess').style.display = 'block';
+                setTimeout(() => {
+                    document.getElementById('emailSuccess').style.display = 'none';
+                }, 5000);
                 
-                // Mostrar estado de carga
-                btnText.style.display = 'none';
-                btnLoading.style.display = 'inline';
-                submitBtn.disabled = true;
-                
-                try {
-                    // Enviar formulario a Formspree
-                    const formData = new FormData(this);
-                    
-                    const response = await fetch(this.action, {
-                        method: 'POST',
-                        body: formData,
-                        headers: {
-                            'Accept': 'application/json'
-                        }
-                    });
-                    
-                    if (response.ok) {
-                        // Éxito
-                        alert(`¡Perfecto ${nombre}! Hemos recibido tu solicitud.\nTe contactaremos en ${email} en menos de 24 horas.`);
-                        
-                        // Aumentar contador
-                        const counterNumber = document.getElementById('counterNumber');
-                        let currentCount = parseInt(counterNumber.textContent);
-                        counterNumber.textContent = currentCount + 1;
-                        
-                        // Resetear formulario
-                        this.reset();
-                    } else {
-                        alert('Hubo un error al enviar. Por favor, usa el botón de WhatsApp o escríbenos directamente a videovalarcade@gmail.com');
-                    }
-                } catch (error) {
-                    alert('Error de conexión. Por favor, usa WhatsApp o email directo.');
-                } finally {
-                    // Restaurar botón
-                    btnText.style.display = 'inline';
-                    btnLoading.style.display = 'none';
-                    submitBtn.disabled = false;
-                }
-            });
+                // Aumentar contador
+                increaseCounter();
+            }
         }
-
-        // Counter animation
+        
+        // 2. FORMULARIO ONLINE
+        function submitContactRequest() {
+            const name = document.getElementById('contactName').value;
+            const email = document.getElementById('contactEmail').value;
+            const phone = document.getElementById('contactPhone').value;
+            
+            // Validación
+            if (!name || !email) {
+                alert('Por favor, completa al menos el nombre y el email.');
+                return;
+            }
+            
+            // Validar email
+            const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+            if (!emailRegex.test(email)) {
+                alert('Por favor, introduce un email válido.');
+                return;
+            }
+            
+            // Mostrar éxito
+            document.getElementById('formSuccess').style.display = 'block';
+            document.getElementById('successDetails').innerHTML = 
+                `Gracias <strong>${name}</strong>. Te contactaremos en <strong>${email}</strong> en menos de 24 horas.`;
+            
+            // Guardar en localStorage (para seguimiento)
+            const submission = {
+                name: name,
+                email: email,
+                phone: phone,
+                date: new Date().toLocaleString('es-ES'),
+                timestamp: Date.now()
+            };
+            
+            localStorage.setItem('artcade_last_submission', JSON.stringify(submission));
+            
+            // También guardar en un array de solicitudes
+            let submissions = JSON.parse(localStorage.getItem('artcade_submissions') || '[]');
+            submissions.push(submission);
+            localStorage.setItem('artcade_submissions', JSON.stringify(submissions));
+            
+            // Aumentar contador
+            increaseCounter();
+            
+            // Resetear formulario después de 5 segundos
+            setTimeout(() => {
+                document.getElementById('contactName').value = '';
+                document.getElementById('contactEmail').value = '';
+                document.getElementById('contactPhone').value = '';
+                document.getElementById('formSuccess').style.display = 'none';
+            }, 5000);
+            
+            // Opcional: Mostrar confirmación
+            alert(`¡Gracias ${name}! Hemos registrado tu solicitud. Te contactaremos pronto.`);
+        }
+        
+        // Función para aumentar contador
+        function increaseCounter() {
+            const counterNumber = document.getElementById('counterNumber');
+            let currentCount = parseInt(counterNumber.textContent);
+            counterNumber.textContent = currentCount + 1;
+            
+            // Guardar en localStorage
+            localStorage.setItem('artcade_counter', counterNumber.textContent);
+        }
+        
+        // Cargar contador desde localStorage
+        window.addEventListener('load', function() {
+            const savedCounter = localStorage.getItem('artcade_counter');
+            if (savedCounter) {
+                document.getElementById('counterNumber').textContent = savedCounter;
+            } else {
+                // Animación inicial del contador
+                animateCounter();
+            }
+            
+            // Animate steps on scroll
+            const observerOptions = {
+                threshold: 0.2
+            };
+            
+            const observer = new IntersectionObserver(function(entries) {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('animated');
+                    }
+                });
+            }, observerOptions);
+            
+            document.querySelectorAll('.step, .gallery-item, .testimonial, .tier').forEach(el => {
+                observer.observe(el);
+            });
+        });
+        
         function animateCounter() {
             const counter = document.getElementById('counterNumber');
             let count = 0;
@@ -1640,41 +1749,6 @@
                 counter.textContent = Math.floor(count);
             }, 40);
         }
-
-        // Exit intent popup - CORREGIDO (solo se activa al salir)
-        let popupShown = false;
-        let mouseHasMoved = false;
-        
-        // Solo mostrar el popup si el mouse se mueve hacia arriba para salir
-        document.addEventListener('mouseout', function(e) {
-            // Solo activar si:
-            // 1. El mouse sale por la parte superior (e.clientY <= 0)
-            // 2. No se ha mostrado antes
-            // 3. El usuario ha interactuado primero (mouseHasMoved)
-            if (!popupShown && e.clientY <= 0 && mouseHasMoved) {
-                document.getElementById('exitPopup').classList.add('active');
-                popupShown = true;
-            }
-        });
-        
-        // Detectar que el usuario ha interactuado con la página
-        document.addEventListener('mousemove', function() {
-            mouseHasMoved = true;
-        });
-        
-        // También detectar clicks
-        document.addEventListener('click', function() {
-            mouseHasMoved = true;
-        });
-        
-        // Cerrar popup cuando se hace clic en los botones
-        document.getElementById('stayBtn').addEventListener('click', function() {
-            document.getElementById('exitPopup').classList.remove('active');
-        });
-        
-        document.getElementById('leaveBtn').addEventListener('click', function() {
-            document.getElementById('exitPopup').classList.remove('active');
-        });
 
         // Smooth scrolling for anchor links
         document.querySelectorAll('a[href^="#"]').forEach(anchor => {
@@ -1694,29 +1768,6 @@
                         behavior: 'smooth'
                     });
                 }
-            });
-        });
-
-        // Initialize animations on load
-        window.addEventListener('load', function() {
-            animateCounter();
-            
-            // Animate steps on scroll
-            const observerOptions = {
-                threshold: 0.2
-            };
-            
-            const observer = new IntersectionObserver(function(entries) {
-                entries.forEach(entry => {
-                    if (entry.isIntersecting) {
-                        entry.target.classList.add('animated');
-                    }
-                });
-            }, observerOptions);
-            
-            // Observe elements to animate
-            document.querySelectorAll('.step, .gallery-item, .testimonial, .tier').forEach(el => {
-                observer.observe(el);
             });
         });
     </script>

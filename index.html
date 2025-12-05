@@ -344,15 +344,16 @@
             overflow: hidden;
         }
         
-        .gallery-img::before {
+       .gallery-img::before {
     content: '';
     position: absolute;
     top: 0;
     left: 0;
     right: 0;
     bottom: 0;
-    background: linear-gradient(45deg, rgba(255, 215, 0, 0.1), rgba(139, 69, 19, 0.1));
+    background: linear-gradient(45deg, rgba(255, 215, 0, 0.03), rgba(139, 69, 19, 0.03)); /* REDUCÍ MUCHO LA OPACIDAD */
     z-index: 1;
+    pointer-events: none; /* Esto permite hacer clic a través del gradiente */
 }
         
       /* IMÁGENES RETRO PARA GALERÍA - VERSIÓN CORREGIDA */
@@ -1999,6 +2000,7 @@
     </script>
 </body>
 </html>
+
 
 
 

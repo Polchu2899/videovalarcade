@@ -308,55 +308,56 @@
             margin-bottom: 10px;
         }
         
-        /* Galería - IMÁGENES MEJORADAS */
-        .gallery {
-            background-color: #111;
-        }
-        
-        .gallery-container {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-            gap: 30px;
-        }
-        
-        .gallery-item {
-            background-color: #1a1a1a;
-            border-radius: var(--border-radius);
-            overflow: hidden;
-            transition: var(--transition);
-        }
-        
-        .gallery-item:hover {
-            transform: translateY(-10px);
-            box-shadow: var(--box-shadow);
-        }
-        
-        .gallery-img {
-            height: 200px;
-            background-color: #1a1a1a;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            background-size: 120px;
-            background-repeat: no-repeat;
-            background-position: center;
-            position: relative;
-            overflow: hidden;
-        }
-        
-       .gallery-img::before {
+        /* Galería - IMÁGENES MEJORADAS - VERSIÓN CORREGIDA */
+.gallery {
+    background-color: #111;
+}
+
+.gallery-container {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: 30px;
+}
+
+.gallery-item {
+    background-color: #1a1a1a;
+    border-radius: var(--border-radius);
+    overflow: hidden;
+    transition: var(--transition);
+}
+
+.gallery-item:hover {
+    transform: translateY(-10px);
+    box-shadow: var(--box-shadow);
+}
+
+.gallery-img {
+    height: 200px;
+    background-color: #1a1a1a;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-size: 120px;
+    background-repeat: no-repeat;
+    background-position: center;
+    position: relative;
+    overflow: hidden;
+}
+
+/* ELIMINADO EL GRADIENTE QUE TAPABA LAS IMÁGENES */
+.gallery-img::before {
     content: '';
     position: absolute;
     top: 0;
     left: 0;
     right: 0;
     bottom: 0;
-    background: linear-gradient(45deg, rgba(255, 215, 0, 0.03), rgba(139, 69, 19, 0.03)); /* REDUCÍ MUCHO LA OPACIDAD */
+    /* background: linear-gradient(45deg, rgba(255, 215, 0, 0.1), rgba(139, 69, 19, 0.1)); */
+    background: none; /* IMPORTANTE: quitamos el fondo */
     z-index: 1;
-    pointer-events: none; /* Esto permite hacer clic a través del gradiente */
 }
-        
-      /* IMÁGENES RETRO PARA GALERÍA - VERSIÓN CORREGIDA */
+
+/* IMÁGENES RETRO PARA GALERÍA - VERSIÓN DEFINITIVA */
 .gallery-img.story-1 {
     background-image: url('https://cdn.pixabay.com/photo/2017/01/31/17/08/arcade-2025381_1280.png');
     background-size: 180px;
@@ -2000,6 +2001,7 @@
     </script>
 </body>
 </html>
+
 
 
 

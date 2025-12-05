@@ -1467,14 +1467,14 @@
                     
                     <div class="form-group">
                         <label for="interes">
-                            <i class="fas fa-star"></i> Nivel de interés <span class="required">*</span>
+                            <i class="fas fa-star"></i> Estilo Personalizado <span class="required">*</span>
                         </label>
                         <select id="interes" class="form-control" required>
                             <option value="" disabled selected>Selecciona una opción</option>
                             <option value="FIRMA">FIRMA (+50€) - Nombre/fecha/iniciales</option>
                             <option value="HISTORIA">HISTORIA (+100€) - Diseño simple personalizado</option>
                             <option value="LEGADO">LEGADO (+200€) - Diseño complejo personalizado</option>
-                            <option value="CONSULTA">Solo consulta inicial</option>
+                            <option value="CONSULTA">CONSULTA - Solo información inicial</option>
                         </select>
                     </div>
                     
@@ -1484,6 +1484,8 @@
                         </label>
                         <textarea id="mensaje" class="form-control" rows="4" placeholder="Cuéntanos tu idea, fecha especial, o cualquier detalle que quieras incluir en tu panel arcade..."></textarea>
                     </div>
+                    
+                    <input type="hidden" id="origen" name="origen" value="Landing Page ARTCADE">
                     
                     <button type="submit" class="btn-submit" id="submitBtn">
                         <span id="btnText"><i class="fas fa-paper-plane"></i> Enviar solicitud</span>
@@ -1572,13 +1574,13 @@
                         <li><i class="fas fa-envelope"></i> videovalarcade@gmail.com</li>
                         <li><i class="fas fa-phone"></i> +34 644 28 05 99</li>
                         <li><i class="fab fa-whatsapp"></i> WhatsApp disponible</li>
-                        <li><i class="fas fa-map-marker-alt"></i> Taller ARTCADE, Madrid</li>
+                        <li><i class="fas fa-map-marker-alt"></i> Taller ARTCADE, Valencia</li>
                     </ul>
                 </div>
             </div>
             
             <div class="copyright">
-                <p>&copy; 2023 ARTCADE. Todos los derechos reservados. Hecho con ❤️ y 🕹️ en España.</p>
+                <p>&copy; 2025 ARTCADE. Todos los derechos reservados. Hecho con ❤️ y 🕹️ en España.</p>
             </div>
         </div>
     </footer>
@@ -1591,14 +1593,10 @@
     <script>
         // =================== CONFIGURACIÓN GOOGLE SHEETS ===================
         
-        // IMPORTANTE: Necesitas crear un Google Apps Script y poner aquí la URL
-        // Sigue estos pasos: https://github.com/jamiewilson/form-to-google-sheets
-        
         // URL DE TU GOOGLE APPS SCRIPT
-        // Esta es una URL de ejemplo - NECESITAS CREARLA Y PONERLA AQUÍ
-        const GOOGLE_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbwYD38p-KxQwMxN07_9tgy56eBy77iGpKbZ_d9l73jMYV7MSovtH9DlhxxbIxQprp_k/exec';
+        const GOOGLE_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbwxpgjSWha1AyJ231PaL2YIyl2EVSVKQTG77N3dgeice7oEkSaDAvb58vkBW4RHe8zv/exec';
         
-        // URL DE TU GOOGLE SHEETS
+        // URL DE TU GOOGLE SHEETS (para referencia)
         const GOOGLE_SHEETS_URL = 'https://docs.google.com/spreadsheets/d/1wT8pJFnROyQpJaPIL9Z6U--d89y3tMZzkxKd3fdTIQg/edit#gid=0';
         
         // =================== FUNCIONES DEL FORMULARIO ===================
@@ -1613,10 +1611,7 @@
                 telefono: document.getElementById('telefono').value.trim() || '',
                 interes: document.getElementById('interes').value,
                 mensaje: document.getElementById('mensaje').value.trim() || '',
-                fecha: new Date().toLocaleString('es-ES'),
-                origen: 'Página Web ARTCADE',
-                timestamp: new Date().toISOString(),
-                pagina: window.location.href
+                origen: document.getElementById('origen').value || 'Landing Page ARTCADE'
             };
             
             // Validación
@@ -1641,9 +1636,6 @@
                     // Guardar en localStorage (backup)
                     saveToLocalStorage(formData);
                     
-                    // Opcional: Mostrar enlace a Google Sheets
-                    console.log('✅ Lead guardado en:', GOOGLE_SHEETS_URL);
-                    
                     // Resetear formulario después de 5 segundos
                     setTimeout(() => {
                         this.reset();
@@ -1665,11 +1657,22 @@
         // =================== FUNCIONES AUXILIARES ===================
         
         async function sendToGoogleSheets(data) {
-            // Formato para Google Apps Script
+            // Crear el payload con los nombres de campo exactos que espera tu Google Script
             const payload = {
-                ...data,
-                action: 'submit'
+                nombre: data.nombre,
+                email: data.email,
+                telefono: data.telefono,
+                interes: data.interes,
+                mensaje: data.mensaje,
+                origen: data.origen,
+                timestamp: new Date().toISOString()
             };
+            
+            // Convertir a formato URL encoded
+            const formData = new URLSearchParams();
+            for (const key in payload) {
+                formData.append(key, payload[key]);
+            }
             
             // Enviar a Google Apps Script
             const response = await fetch(GOOGLE_SCRIPT_URL, {
@@ -1678,7 +1681,7 @@
                 headers: {
                     'Content-Type': 'application/x-www-form-urlencoded',
                 },
-                body: new URLSearchParams(payload).toString()
+                body: formData.toString()
             });
             
             // Como usamos 'no-cors', no podemos leer la respuesta directamente
@@ -1705,7 +1708,7 @@
             
             // Validar interés
             if (!data.interes) {
-                showError('Por favor, selecciona un nivel de interés.');
+                showError('Por favor, selecciona un estilo personalizado.');
                 return false;
             }
             
@@ -1735,7 +1738,7 @@
             detailsElement.innerHTML = `
                 Gracias <strong>${data.nombre}</strong>!<br>
                 Te contactaremos en <strong>${data.email}</strong> en menos de 24 horas.<br>
-                <small>Interés: ${data.interes} | ${new Date().toLocaleTimeString('es-ES')}</small>
+                <small>Estilo seleccionado: ${data.interes} | ${new Date().toLocaleTimeString('es-ES')}</small>
             `;
             
             successElement.style.display = 'block';
@@ -1873,6 +1876,12 @@
             document.querySelectorAll('.step, .gallery-item, .testimonial, .tier').forEach(el => {
                 observer.observe(el);
             });
+            
+            // Debug info
+            console.log('=== ARTCADE - Sistema de Leads ===');
+            console.log('✅ Google Apps Script URL:', GOOGLE_SCRIPT_URL);
+            console.log('📊 Google Sheets URL:', GOOGLE_SHEETS_URL);
+            console.log('🔄 Para probar: escribe testForm() en la consola');
         });
         
         function animateCounter() {
@@ -1912,17 +1921,14 @@
             document.getElementById('mensaje').value = 'Esta es una prueba del formulario Google Sheets';
             
             console.log('✅ Formulario llenado con datos de prueba');
-            console.log('📊 Los datos se enviarán a:', GOOGLE_SHEETS_URL);
+            console.log('📊 Los datos se enviarán a Google Sheets');
             console.log('📡 URL del script:', GOOGLE_SCRIPT_URL);
             
             alert('Formulario llenado con datos de prueba. Ahora haz clic en "Enviar solicitud" para probar.');
+            
+            // Opcional: enviar automáticamente
+            // document.getElementById('artcadeForm').dispatchEvent(new Event('submit'));
         };
-        
-        // Mostrar información de debug en consola
-        console.log('=== ARTCADE - Sistema de Leads ===');
-        console.log('📊 Google Sheets:', GOOGLE_SHEETS_URL);
-        console.log('📡 Script URL:', GOOGLE_SCRIPT_URL);
-        console.log('🔄 Para probar: escribe testForm() en la consola');
         
     </script>
 </body>

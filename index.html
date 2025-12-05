@@ -308,7 +308,7 @@
             margin-bottom: 10px;
         }
         
-        /* Galería - CORREGIDO - IMÁGENES VISIBLES */
+        /* Galería - CON IMÁGENES NUEVAS Y VISIBLES */
         .gallery {
             background-color: #111;
         }
@@ -332,69 +332,66 @@
         }
         
         .gallery-img {
-            height: 200px;
+            height: 220px;
             width: 100%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
             background-size: cover;
             background-position: center;
             background-repeat: no-repeat;
             position: relative;
         }
         
-        /* QUITAMOS EL PSEUDO-ELEMENTO QUE TAPABA LAS IMÁGENES */
-        .gallery-img::before {
+        .gallery-img::after {
             content: '';
             position: absolute;
             top: 0;
             left: 0;
             right: 0;
             bottom: 0;
-            background: rgba(10, 10, 10, 0.3); /* Solo un ligero oscurecimiento */
+            background: linear-gradient(to bottom, rgba(0,0,0,0.1), rgba(0,0,0,0.7));
             z-index: 1;
         }
         
-        /* IMÁGENES MEJORADAS - TAMAÑO MÁS GRANDE */
+        /* IMÁGENES NUEVAS DE UNSPLASH - VISIBLES Y DE ALTA CALIDAD */
         .gallery-img.story-1 {
-            background-image: url('https://cdn.pixabay.com/photo/2017/01/31/17/08/arcade-2025381_1280.png');
-            background-color: #2a2a2a;
+            background-image: url('https://images.unsplash.com/photo-1579364046733-f20c7bb79d57?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80');
         }
         
         .gallery-img.story-2 {
-            background-image: url('https://cdn.pixabay.com/photo/2017/01/31/17/08/tools-2025380_1280.png');
-            background-color: #2a2a2a;
+            background-image: url('https://images.unsplash.com/photo-1518709268805-4e9042af2176?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80');
         }
         
         .gallery-img.story-3 {
-            background-image: url('https://cdn.pixabay.com/photo/2017/01/31/17/08/pheonix-2025379_1280.png');
-            background-color: #2a2a2a;
+            background-image: url('https://images.unsplash.com/photo-1446776653964-20c1d3a81b06?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80');
         }
         
         .gallery-img.story-4 {
-            background-image: url('https://cdn.pixabay.com/photo/2017/01/31/17/08/astronomy-2025378_1280.png');
-            background-color: #2a2a2a;
+            background-image: url('https://images.unsplash.com/photo-1533743983669-94fa5c4338ec?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80');
         }
         
         .gallery-img.story-5 {
-            background-image: url('https://cdn.pixabay.com/photo/2017/01/31/17/08/paw-print-2025377_1280.png');
-            background-color: #2a2a2a;
+            background-image: url('https://images.unsplash.com/photo-1568640347023-a616a30bc3bd?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80');
         }
         
         .gallery-img.story-6 {
-            background-image: url('https://cdn.pixabay.com/photo/2017/01/31/17/08/question-mark-2025376_1280.png');
-            background-color: #2a2a2a;
+            background-image: url('https://images.unsplash.com/photo-1511512578047-dfb367046420?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80');
+            background-position: center 30%;
         }
         
         .gallery-content {
-            padding: 20px;
+            padding: 25px;
             position: relative;
             z-index: 2;
         }
         
         .gallery-content h4 {
             color: var(--accent-color);
-            margin-bottom: 10px;
+            margin-bottom: 12px;
+            font-size: 1.3rem;
+        }
+        
+        .gallery-content p {
+            color: #ddd;
+            line-height: 1.5;
         }
         
         /* Cómo funciona */
@@ -658,7 +655,7 @@
         .final-cta {
             text-align: center;
             background: linear-gradient(rgba(10, 10, 10, 0.9), rgba(10, 10, 10, 0.9)), 
-                        url('https://images.unsplash.com/photo-1511512578047-dfb367046420?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80') 
+                        url('https://images.unsplash.com/photo-1511512578047-dfb367046420?ixlib=rb-4.0.3&auto=format&fit=crop&w=2070&q=80') 
                         no-repeat center center/cover;
             padding: 100px 0;
         }
@@ -1141,7 +1138,7 @@
         </div>
     </section>
 
-    <!-- Galería CON HISTORIAS RETRO ARCADE - CORREGIDO -->
+    <!-- Galería CON IMÁGENES NUEVAS Y VISIBLES -->
     <section id="gallery" class="gallery">
         <div class="container">
             <div class="section-title">
